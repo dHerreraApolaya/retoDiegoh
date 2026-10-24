@@ -60,17 +60,21 @@ test('scanner rejects a synthetic private-key fixture and accepts a safe placeho
 });
 
 test('staged scan detects an indexed secret even after the worktree is cleaned', () => {
+  // Git hooks export repository/index overrides. cwd alone does not isolate Git.
+  const env = Object.fromEntries(
+    Object.entries(process.env).filter(([name]) => !name.startsWith('GIT_')),
+  );
   const directory = mkdtempSync(path.join(tmpdir(), 'reto-staged-scan-'));
   const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
   const file = path.join(directory, 'fixture.txt');
   try {
     assert.equal(
-      spawnSync('git', ['init', '--quiet'], { cwd: directory }).status,
+      spawnSync('git', ['init', '--quiet'], { cwd: directory, env }).status,
       0,
     );
     writeFileSync(file, privateKey.export({ type: 'pkcs1', format: 'pem' }));
     assert.equal(
-      spawnSync('git', ['add', 'fixture.txt'], { cwd: directory }).status,
+      spawnSync('git', ['add', 'fixture.txt'], { cwd: directory, env }).status,
       0,
     );
     writeFileSync(file, 'YOUR_API_KEY\n');
@@ -79,6 +83,7 @@ test('staged scan detects an indexed secret even after the worktree is cleaned',
     );
     const result = spawnSync(process.execPath, [script], {
       cwd: directory,
+      env,
       encoding: 'utf8',
     });
     assert.equal(
