@@ -6,6 +6,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "check:docs": "node scripts/check-doc-links.mjs",
     "start": "react-native start",
     "test": "jest"
   },

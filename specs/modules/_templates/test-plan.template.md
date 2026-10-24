@@ -286,6 +286,11 @@ Validar:
 - Comportamiento en app switcher.
 - Comportamiento en background.
 
+No inferir protección nativa a partir de mocks Jest. En Android verificar
+FLAG_SECURE en dispositivos/versiones soportados. En iOS registrar mitigación de
+captura/grabación y snapshots, junto con el límite de screenshots: una
+notificación posterior no demuestra bloqueo.
+
 ### ST-004: Timeout
 
 Validar:
@@ -347,6 +352,13 @@ Validar cuando corresponda:
 
 No crear pruebas de rendimiento sin una métrica o riesgo definido.
 
+## Evidencia OWASP
+
+Relacionar los riesgos Mobile Top 10 con controles MASVS y procedimientos MASTG
+aplicables. Cada resultado debe indicar commit/build, plataforma, versión de OS,
+fecha, pasos/comando, resultado observado y artefacto sanitizado. Mantener el
+estado pendiente hasta ejecutar la validación correspondiente.
+
 ## Matriz de cobertura
 
 | ID de prueba | Tipo          | Requisito | Automatizada | Estado    | Archivo                          |
@@ -361,16 +373,15 @@ No crear pruebas de rendimiento sin una métrica o riesgo definido.
 ## Comandos de validación
 
 ```bash
-yarn typecheck
-yarn lint
-yarn test
-yarn test:unit
-yarn test:integration
-yarn e2e:android
-yarn e2e:ios
+npm run check:docs
+npm run typecheck
+npm run lint
+npm test -- --runInBand
 ```
 
-Ajustar los comandos a la configuración real del proyecto.
+Estos son los scripts existentes. Las pruebas nativas/E2E y los escáneres de
+seguridad requieren configuración adicional; no inventar comandos ni marcar
+su ejecución como exitosa. Ver docs/engineering/quality-gates.md.
 
 ## Evidencias
 

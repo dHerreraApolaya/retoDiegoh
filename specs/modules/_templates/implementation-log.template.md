@@ -151,9 +151,10 @@ src/path/ExistingFile.ts
 **Validaciones ejecutadas**
 
 ```text
-yarn typecheck: PASS
-yarn lint: PASS
-yarn test FeatureName: PASS
+npm run check:docs: [resultado observado / no ejecutado]
+npm run typecheck: [resultado observado / no ejecutado]
+npm run lint: [resultado observado / no ejecutado]
+npm test -- --runInBand: [resultado observado / no ejecutado]
 ```
 
 **Pendientes**

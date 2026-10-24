@@ -23,13 +23,13 @@ src/capabilities/<capability-name>/
 ## Vertical Slice
 
 ```text
-src/capabilities/<capability-name>/<feature-name>/
+src/capabilities/<capability-name>/
 ```
 
 Estructura esperada:
 
 ```text
-<feature-name>/
+<capability-name>/
 ├── presentation/
 │   ├── screens/
 │   ├── components/
@@ -56,9 +56,16 @@ Estructura esperada:
 └── index.ts
 ```
 
-Crear únicamente las carpetas necesarias.
+Crear únicamente las carpetas necesarias. La funcionalidad es un cambio vertical
+entre las capas de la capacidad; no crear un árbol completo de capas por feature.
+Ver docs/architecture/architecture.md y ADR-001. Mantener los tokens en
+src/design/tokens.
 
 ## Componentes de la solución
+
+Aplicar [naming conventions](../../../docs/engineering/naming-conventions.md):
+el nombre expresa el concepto, la responsabilidad y la capa, sin sufijos
+genéricos como Manager, Helper o Impl.
 
 | Componente         | Capa           | Responsabilidad   |
 | ------------------ | -------------- | ----------------- |
@@ -68,7 +75,11 @@ Crear únicamente las carpetas necesarias.
 | `[ScreenName]`     | Presentation   | [Responsabilidad] |
 | `[HookName]`       | Presentation   | [Responsabilidad] |
 
-## Diagrama de dependencias
+## Flujo de ejecución (no dirección de imports)
+
+El adapter implementa el port definido por aplicación. El caso de uso depende
+del port, nunca de la clase concreta del adapter. La composición se realiza en
+src/app mediante factories públicas de la capacidad.
 
 ```text
 Screen
@@ -263,7 +274,9 @@ No pasar entidades completas mediante navegación.
 
 ### Protección visual
 
-- Screenshot: [decisión].
+- Screenshot Android: [FLAG_SECURE y evidencia por versión/dispositivo].
+- Screenshot iOS: [mitigaciones, límites y criterio de aceptación; la notificación
+  posterior a captura no demuestra prevención].
 - App switcher: [decisión].
 - Screen recording: [decisión].
 
@@ -282,6 +295,15 @@ Eventos permitidos:
 Campos prohibidos:
 
 - [Campo sensible].
+
+### Trazabilidad de seguridad
+
+- Amenazas relacionadas: [T-## en docs/security/threat-model.md].
+- Riesgos Mobile Top 10 y controles MASVS aplicables: [IDs y justificación].
+- Procedimientos MASTG y evidencia requerida: [referencias].
+- Datos que cruzan JS/nativo, persistencia y eliminación: [contrato].
+- Estado: planned / implemented / verified / not-applicable / accepted-risk.
+- Riesgo residual y responsable de aceptación: [si aplica, sin inventar aprobación].
 
 ## Accesibilidad
 
@@ -315,6 +337,19 @@ No incluir información sensible.
 
 ## Decisiones arquitectónicas
 
+### Principios y patrones aplicados
+
+- Requisito o límite que justifica el patrón: [descripción].
+- Solución más simple considerada y decisión: [patrón o función simple].
+- SOLID: [responsabilidades, contratos y dirección de dependencias].
+- KISS: [complejidad que se evita].
+- DRY: [regla con fuente única y duplicación intencional, si aplica].
+- Evidencia de comportamiento: [pruebas relacionadas].
+
+Seguir [design principles](../../../docs/engineering/design-principles.md).
+No introducir un patrón solo para completar esta sección; usar ADR cuando la
+decisión afecte límites o políticas relevantes.
+
 ### ADR-001: [Título]
 
 **Contexto**
@@ -338,7 +373,7 @@ No incluir información sensible.
 ## Archivos estimados
 
 ```text
-src/capabilities/<capability>/<feature>/
+src/capabilities/<capability>/
 ├── application/
 ├── domain/
 ├── infrastructure/
