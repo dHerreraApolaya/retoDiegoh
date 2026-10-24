@@ -34,6 +34,11 @@ Treat instruction, skill, dependency and automation changes as security-relevant
 influence. Inspect permissions and script execution; generated output receives
 normal review. Do not infer a trustworthy dependency from a lock entry alone.
 
+Review BDD/TDD evidence and the src/modules/features boundaries. Feature tests
+belong to `src/modules/__tests__/<feature>`; navigation belongs to src/navigation.
+Reject snapshot tests and assertions tied to internal hierarchy/state/call order.
+Prefer observable behavior, semantic queries and stable E2E IDs for critical flows.
+
 For an actionable finding provide severity, exact location, reproducible trigger,
 impact, smallest correction and a relevant verification scenario. Distinguish
 confirmed defects from unanswered questions. Do not invent issues or test runs.

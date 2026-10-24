@@ -1,9 +1,9 @@
 # Card Secure View — retoDiegoh
 
 React Native technical challenge: a masked account/card dashboard and a custom
-native secure-card view, using synthetic data. The starter now has shared
-engineering checks and a TanStack Query provider; card reveal, login and actual
-Firestore access remain future features.
+native secure-card view, using synthetic data. The app has shared engineering checks, a TanStack Query provider and a minimal
+Login/Home demo with a five-minute in-memory session. Real authentication, card
+reveal and Firestore access remain future features.
 
 ## Start here
 
@@ -54,3 +54,6 @@ checks. See [quality gates](docs/engineering/quality-gates.md) for actual scope.
 Mobile security uses OWASP Mobile Top 10 with MASVS/MASTG evidence planning.
 Policies or passing scanners do not establish compliance or complete absence of
 secrets. Report sensitive findings using [SECURITY.md](SECURITY.md).
+
+Session/navigation behavior and BDD/TDD evidence: [session spec](specs/session/demo-access/spec.md).
+Source organization follows [ADR-002](docs/architecture/decisions/ADR-002-screaming-feature-architecture.md).

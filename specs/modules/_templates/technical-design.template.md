@@ -17,13 +17,13 @@
 ## Capacidad
 
 ```text
-src/capabilities/<capability-name>/
+src/modules/features/<feature-name>/
 ```
 
 ## Vertical Slice
 
 ```text
-src/capabilities/<capability-name>/
+src/modules/features/<feature-name>/
 ```
 
 Estructura esperada:
@@ -52,13 +52,14 @@ Estructura esperada:
 │   ├── storage/
 │   ├── native/
 │   └── mappers/
-├── testing/
 └── index.ts
 ```
 
-Crear únicamente las carpetas necesarias. La funcionalidad es un cambio vertical
-entre las capas de la capacidad; no crear un árbol completo de capas por feature.
-Ver docs/architecture/architecture.md y ADR-001. Mantener los tokens en
+Crear únicamente las capas necesarias dentro de cada feature. Mantener su política
+y contratos con su propietario; coordinar las funcionalidades desde src/app usando
+APIs públicas. Las pruebas viven en `src/modules/__tests__/<feature-name>`, fuera
+del árbol productivo del feature.
+Ver docs/architecture/architecture.md y ADR-002. Mantener los tokens en
 src/design/tokens.
 
 ## Componentes de la solución
@@ -386,7 +387,7 @@ decisión afecte límites o políticas relevantes.
 ## Archivos estimados
 
 ```text
-src/capabilities/<capability>/
+src/modules/features/<feature>/
 ├── application/
 ├── domain/
 ├── infrastructure/

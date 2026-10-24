@@ -18,8 +18,9 @@ focus to React Native AppState with cleanup. The cache is for non-sensitive
 summaries only. PAN, CVV, reveal grants and login credentials must never be query
 data, keys, mutation payload metadata, persisted caches or devtools output.
 
-Queries have bounded retries; mutations are not automatically retried. Clear user
-queries on logout/account change when login is implemented. Network-aware resume
+Queries have bounded retries; mutations are not automatically retried. App composition clears user
+queries when the local demo session closes or expires. Future real login/account
+changes must preserve that isolation. Network-aware resume
 can be connected to onlineManager through a connectivity adapter when a feature
 requires it; no unimplemented connectivity integration is claimed here.
 

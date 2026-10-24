@@ -196,3 +196,5 @@ Una especificación está terminada cuando:
 - No existen desviaciones sin documentar.
 - El registro de implementación fue actualizado.
 - Typecheck, lint y pruebas relacionadas finalizaron correctamente.
+
+Implementación actual: [sesión local y navegación Login/Home](session/demo-access/spec.md).

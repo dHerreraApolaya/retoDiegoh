@@ -1741,6 +1741,53 @@ PODS:
     - ReactNativeDependencies
     - RNFBApp
     - Yoga
+  - RNScreens (4.30.0):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-bridging
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - RNScreens/common (= 4.30.0)
+    - Yoga
+  - RNScreens/common (4.30.0):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-bridging
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - SocketRocket (0.7.1):
     - ReactNativeDependencies
   - Yoga (0.0.0):
@@ -1835,6 +1882,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
+  - RNScreens (from `../node_modules/react-native-screens`)
   - SocketRocket (from `build/rndeps-facades/SocketRocket`)
   - Yoga (from `build/rncore-facades/Yoga`)
 
@@ -2014,6 +2062,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/auth"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   SocketRocket:
     :path: build/rndeps-facades/SocketRocket
   Yoga:
@@ -2107,6 +2157,7 @@ SPEC CHECKSUMS:
   RNFBApp: d1952030af8b12053cef6bd961cd937245b3987a
   RNFBAuth: 50d600d8677fff678bb3ba6ba4806bd51ceb2737
   RNFBFirestore: b4c852642b02eb35889d1222a342685a4f4cde9d
+  RNScreens: 4bac14b997bcf160be0a967bfdae27956847f289
   SocketRocket: 37aec555668fb852ec12e3c0de59a86ca58f0871
   Yoga: d1c536142c5ff8ec8cd856ab2a7c227a1d875c8e
 

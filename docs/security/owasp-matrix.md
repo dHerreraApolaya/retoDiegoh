@@ -41,3 +41,12 @@ artifact. Store this evidence under the feature spec; avoid sensitive captures.
 Web Top 10 applies if backend/web surfaces are introduced. Agentic Top 10 informs
 development-tool policy in [agent-workflow.md](../ai/agent-workflow.md); it does not
 mean this app embeds an LLM or agent.
+
+## Local demo session scope
+
+The [session spec](../../specs/session/demo-access/spec.md) implements in-memory
+demo access, a five-minute absolute deadline, cache cleanup and conditional
+Login/Home routes. JS behavior tests cover these outcomes; no credentials or
+remote authentication are involved. This is not verification of MASVS-AUTH or
+production authorization. Native device/background/E2E checks remain pending,
+and secure-card reveal protections keep their separate native lifecycle policy.
