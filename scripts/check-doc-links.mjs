@@ -1,4 +1,4 @@
-import {existsSync, readFileSync, readdirSync} from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -14,6 +14,7 @@ const targets = [
   'README.md',
   'AGENTS.md',
   'SECURITY.md',
+  'CONTRIBUTING.md',
   'docs',
   'specs',
   '.github/AGENTS.md',
@@ -29,7 +30,7 @@ function markdownFiles(target) {
   if (target.endsWith('.md')) {
     return [absolute];
   }
-  return readdirSync(absolute, {withFileTypes: true}).flatMap(entry => {
+  return readdirSync(absolute, { withFileTypes: true }).flatMap(entry => {
     const child = path.join(target, entry.name);
     if (entry.isDirectory()) {
       return markdownFiles(child);
@@ -60,8 +61,12 @@ for (const file of files) {
 }
 
 if (failures.length) {
-  process.stderr.write(`Broken local documentation links:\n${failures.join('\n')}\n`);
+  process.stderr.write(
+    `Broken local documentation links:\n${failures.join('\n')}\n`,
+  );
   process.exitCode = 1;
 } else {
-  process.stdout.write(`Checked ${checkedLinks} local links in ${files.length} project-owned Markdown files.\n`);
+  process.stdout.write(
+    `Checked ${checkedLinks} local links in ${files.length} project-owned Markdown files.\n`,
+  );
 }

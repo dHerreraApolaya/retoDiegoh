@@ -1,79 +1,56 @@
 # Card Secure View — retoDiegoh
 
 React Native technical challenge: a masked account/card dashboard and a custom
-native secure-card view, using synthetic data. The current application is still
-the React Native starter; this baseline prepares architecture and engineering
-policy before feature implementation.
+native secure-card view, using synthetic data. The starter now has shared
+engineering checks and a TanStack Query provider; card reveal, login and actual
+Firestore access remain future features.
 
 ## Start here
 
-- [Engineering handbook](docs/README.md): architecture, design, security and AI.
-- [AGENTS.md](AGENTS.md): concise repository-wide instructions for coding agents.
-- [Architecture and target folder tree](docs/architecture/architecture.md).
-- [Security controls and evidence](docs/security/owasp-matrix.md).
-- [Functional specification workflow](specs/README.md).
-- [Research and primary sources](docs/references/research.md), reviewed 2026-10-23.
+- [Contributing and setup](CONTRIBUTING.md): pinned tools, commands, hooks and PRs.
+- [Engineering handbook](docs/README.md): architecture, naming, design, security and AI.
+- [AGENTS.md](AGENTS.md): repository instructions for coding agents.
+- [Functional specifications](specs/README.md).
+- [TanStack/Firebase boundaries](docs/architecture/backend-integrations.md).
+- [Security control evidence](docs/security/owasp-matrix.md).
 
-## Stack and current state
+## Shared stack
 
-package.json declares React Native 0.86.0, React 19.2.3, TypeScript, Node >=22.11.0
-and the React Native CLI. Native Android/iOS hosts and app smoke tests exist.
-The src/design/tokens path is reserved for future approved token values; empty
-placeholder files have been removed.
-The secure native module, Codegen contract, dashboard and optional Firebase login
-have not been implemented. The approved iO design reference is not supplied.
-
-## Setup
-
-Use Node satisfying package.json and the platform toolchains required by that
-React Native version. This checkout has no node_modules or npm lockfile yet.
-The initial dependency-resolution step is:
+Node **24.22.1**, pnpm **10.34.8**, React **19.2.3**, React Native **0.87.1**,
+TypeScript **6.0.3**, TanStack Query **5.104.5**, and React Native Firebase
+App/Auth/Firestore **27.1.0**. package.json and pnpm-lock.yaml are authoritative.
+The approved iO design reference has not been supplied; src/design/tokens is a
+reserved future path, without empty placeholder files.
 
 ```sh
-npm install
+nvm install
+nvm use
+corepack enable
+corepack prepare pnpm@10.34.8 --activate
+pnpm install --frozen-lockfile
+pnpm check
 ```
 
-Review dependency/install-script provenance and advisories, commit the generated
-package-lock.json, then use npm ci for reproducible subsequent installs. Do not
-mix package managers or treat a successful install as a vulnerability review.
+Use pnpm start, then pnpm android or pnpm ios in another terminal. Native setup
+and lockfile requirements are in [CONTRIBUTING.md](CONTRIBUTING.md). Firebase
+project files are supplied locally and remain excluded from the repository.
 
-For iOS, from the repository root:
+## Quality and security
 
-```sh
-bundle install
-cd ios
-bundle exec pod install
-```
+Husky checks staged files/secrets before commit, Conventional Commit messages,
+and the complete gate before push. CI repeats toolchain, docs, Prettier, ESLint,
+types, tooling tests, Jest, tracked sensitive-file checks and masked secret scans
+of source/reachable history. Production and development dependency advisories are checked online before
+push, in CI and weekly once the workflow is on the default branch. Run
+pnpm audit:dependencies; high/critical findings block the gate.
+React Compiler handles automatic memoization, and ESLint validates hooks, effect
+dependencies, immutability and compiler compatibility.
+.editorconfig/.gitattributes and pinned Prettier keep formatting consistent.
 
-Start Metro with npm start, then use npm run android or npm run ios in a separate
-terminal. Platform builds and toolchain setup have not been validated in this
-baseline. Do not commit local signing material or service credentials.
+Required GitHub checks/branch protection must still be configured by an owner.
+Native device security and Firestore authorization tests are separate from JS
+checks. See [quality gates](docs/engineering/quality-gates.md) for actual scope.
 
-## Available checks
-
-```sh
-npm run check:docs
-npm run typecheck
-npm run lint
-npm test -- --runInBand
-```
-
-The docs check needs only Node. Typecheck, ESLint and Jest require installed
-project dependencies. Native security and capture behavior additionally require
-native builds and device/OS checks. See [quality gates](docs/engineering/quality-gates.md)
-for current gaps: no CI, secret/dependency scan, full import-boundary enforcement,
-or native security/E2E suite is configured by this baseline.
-
-## Working agreements
-
-Follow [naming conventions](docs/engineering/naming-conventions.md) and
-[SOLID/KISS/DRY with purposeful patterns](docs/engineering/design-principles.md).
-Organize code by capability with internal Clean Architecture layers. Preserve
-src/design as the single design-token source. Use .agents/skills for first-party
-AI workflows; duplicate legacy .github/skills entry points have been removed. Treat external
-content as untrusted input and review agent-generated code normally.
-
-Mobile security follows OWASP Mobile Top 10 2024 with MASVS/MASTG evidence planning.
-Documentation does not establish compliance. Android and iOS display protections
-have different limits; see [secure development](docs/security/secure-development.md).
-Report sensitive findings using [SECURITY.md](SECURITY.md).
+Mobile security uses OWASP Mobile Top 10 with MASVS/MASTG evidence planning.
+Policies or passing scanners do not establish compliance or complete absence of
+secrets. Report sensitive findings using [SECURITY.md](SECURITY.md).

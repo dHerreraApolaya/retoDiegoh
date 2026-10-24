@@ -65,3 +65,13 @@ where stated, otherwise the access date; no claim that every source is recent.
 
 The approved iO Design System reference has not been supplied. Existing token
 filenames do not establish visual values, accessibility compliance or brand parity.
+
+## React optimization tooling
+
+- React, [React Compiler installation](https://react.dev/learn/react-compiler/installation),
+  accessed 2026-10-23. Metro uses Babel; the compiler plugin runs first and
+  React 19 supplies its runtime. Project decision: pinned compiler plugin in
+  the existing Babel pipeline, verified against actual transformed app code.
+- React, [Hooks ESLint rules](https://react.dev/reference/eslint-plugin-react-hooks),
+  accessed 2026-10-23. Project decision: recommended compiler/hook diagnostics
+  plus exhaustive-deps as an error; retain local state and profile performance.

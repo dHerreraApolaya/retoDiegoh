@@ -1,0 +1,8 @@
+packages:
+  - .
+
+# Dependency scripts cannot execute or embed developer environment configuration.
+onlyBuiltDependencies: []
+ignoredBuiltDependencies:
+  - '@firebase/util'
+  - protobufjs

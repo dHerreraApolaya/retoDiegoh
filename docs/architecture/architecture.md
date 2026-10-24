@@ -60,14 +60,14 @@ requirements exist; do not add a monorepo/toolchain solely to reserve that path.
 
 ## Allowed dependencies
 
-| Layer | May depend on | Must not depend on |
-| --- | --- | --- |
-| domain | Its own domain code; framework-free shared types | React, RN, storage, HTTP, native, app, UI |
-| application | domain and its own abstract ports | UI, concrete infrastructure, platform SDKs |
-| infrastructure | application ports, domain, platform libraries | presentation and app |
-| presentation | application API, domain types, design | Concrete storage/network/native adapters |
-| app | Public capability APIs, composition factories, shared, design | Business decisions implemented in wiring |
-| shared and design | Their own dependencies; domain-neutral types | Capabilities and app |
+| Layer             | May depend on                                                 | Must not depend on                         |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------------ |
+| domain            | Its own domain code; framework-free shared types              | React, RN, storage, HTTP, native, app, UI  |
+| application       | domain and its own abstract ports                             | UI, concrete infrastructure, platform SDKs |
+| infrastructure    | application ports, domain, platform libraries                 | presentation and app                       |
+| presentation      | application API, domain types, design                         | Concrete storage/network/native adapters   |
+| app               | Public capability APIs, composition factories, shared, design | Business decisions implemented in wiring   |
+| shared and design | Their own dependencies; domain-neutral types                  | Capabilities and app                       |
 
 Factories exported from a capability assemble its adapters; app supplies runtime
 configuration and hosts providers. A screen receives an application dependency

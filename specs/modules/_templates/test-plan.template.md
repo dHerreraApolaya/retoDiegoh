@@ -373,10 +373,10 @@ estado pendiente hasta ejecutar la validación correspondiente.
 ## Comandos de validación
 
 ```bash
-npm run check:docs
-npm run typecheck
-npm run lint
-npm test -- --runInBand
+pnpm check:docs
+pnpm typecheck
+pnpm lint
+pnpm test --runInBand
 ```
 
 Estos son los scripts existentes. Las pruebas nativas/E2E y los escáneres de

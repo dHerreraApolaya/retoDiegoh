@@ -1,0 +1,11 @@
+node_modules/
+pnpm-lock.yaml
+coverage/
+.git/
+.husky/_/
+android/
+ios/
+.agents/skills/react-native-best-practices/
+Gemfile.lock
+LICENSE
+vendor/
