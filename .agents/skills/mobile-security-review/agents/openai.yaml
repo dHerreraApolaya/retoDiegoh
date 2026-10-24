@@ -1,4 +1,4 @@
 interface:
-  display_name: "Mobile Security Review"
-  short_description: "Review the secure card flow against mobile security controls"
-  default_prompt: "Use $mobile-security-review to assess this change and record evidence without claiming unverified compliance."
+  display_name: 'Mobile Security Review'
+  short_description: 'Review the secure card flow against mobile security controls'
+  default_prompt: 'Use $mobile-security-review to assess this change and record evidence without claiming unverified compliance.'

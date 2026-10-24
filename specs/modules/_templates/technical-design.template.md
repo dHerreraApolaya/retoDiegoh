@@ -315,12 +315,25 @@ Campos prohibidos:
 
 ## Rendimiento
 
+- Tamaños de entrada: [definir n/m, volumen esperado y límite máximo].
+- Complejidad temporal: [Big O, peor caso/promedio/amortizado y supuestos].
+- Espacio auxiliar: [Big O, copias, índices, recursión y memoria retenida].
+- Alternativas y tradeoffs: [tiempo, memoria, legibilidad y costo de mantener índices].
+- Límites de recursos: [tamaño de lote, concurrencia, reintentos, caché y cancelación].
+- Acceso remoto: [cantidad de requests, payload y lecturas/índices del backend].
 - Estrategia de lista: [FlatList / SectionList / otra].
 - Paginación: [decisión].
 - Imágenes: [estrategia].
 - Memoización: [decisión y justificación].
 - Operaciones pesadas: [ubicación].
 - Métricas a observar: [lista].
+- Presupuesto y evidencia: [latencia/memoria objetivo, tamaños sintéticos,
+  dispositivo/build y resultados medidos; indicar pendiente si no se ejecutó].
+
+Aplicar [algorithmic complexity guidance](../../../docs/engineering/coding-standards.md#algorithmic-complexity-and-resource-bounds).
+Completar proporcionalmente cuando existan colecciones crecientes u operaciones
+críticas; usar N/A con motivo cuando no aplique. React Compiler y la memoización
+no cambian el costo asintótico del algoritmo cuando se ejecuta.
 
 ## Analytics
 

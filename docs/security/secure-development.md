@@ -14,13 +14,13 @@ This is not a PCI DSS assessment or production banking certification.
 
 ## Data handling
 
-| Data | Allowed handling | Prohibited handling |
-| --- | --- | --- |
-| Synthetic masked summaries | JS dashboard model; explicit fixture | Real customer/card data in fixtures |
-| Full PAN/CVV and cardholder details | Synthetic native fixture, transient reveal UI | JS/global state, persistence, clipboard, logs, analytics, crash payloads |
-| Reveal token | In-memory request, minimum lifetime | AsyncStorage, navigation params, logs, durable store |
-| Optional persistent login credential | Narrow Keychain/Keystore-backed adapter | Source code, plaintext preferences, .env in app bundle |
-| Signing keys/service credentials | Approved local secret store or CI secret service | Repository, agent prompts, build artifacts shared with third parties |
+| Data                                 | Allowed handling                                 | Prohibited handling                                                      |
+| ------------------------------------ | ------------------------------------------------ | ------------------------------------------------------------------------ |
+| Synthetic masked summaries           | JS dashboard model; explicit fixture             | Real customer/card data in fixtures                                      |
+| Full PAN/CVV and cardholder details  | Synthetic native fixture, transient reveal UI    | JS/global state, persistence, clipboard, logs, analytics, crash payloads |
+| Reveal token                         | In-memory request, minimum lifetime              | AsyncStorage, navigation params, logs, durable store                     |
+| Optional persistent login credential | Narrow Keychain/Keystore-backed adapter          | Source code, plaintext preferences, .env in app bundle                   |
+| Signing keys/service credentials     | Approved local secret store or CI secret service | Repository, agent prompts, build artifacts shared with third parties     |
 
 Android Keystore protects key material; it is not a general arbitrary-secret
 database. Use an appropriate maintained encrypted-storage adapter if persistence
@@ -65,8 +65,8 @@ review; never allowlist credential files solely to silence a scanner.
   code and changes limited to docs, configuration or tests.
 - A confirmed secret or unexplained credential artifact blocks approval/merge.
 - Record manual review scope/result and scanner name, scope and observed result
-  separately in the PR. If no scanner ran, record NOT RUN; this baseline does not
-  currently configure automated secret scanning or enforce branch protection.
+  separately in the PR. If no scanner ran, record NOT RUN; Secretlint scans current source and reachable Git history and a separate gate
+  rejects sensitive tracked paths. Branch protection still needs repository setup.
 - Do not copy discovered values into comments, issue bodies, CI logs or prompts.
   Report only the path/location and category through the private reporting flow.
 - Require the credential owner to revoke/rotate a leaked secret, remove it from
@@ -74,8 +74,9 @@ review; never allowlist credential files solely to silence a scanner.
   alone is insufficient. History rewriting requires coordination and explicit
   authorization; do not perform destructive cleanup automatically.
 
-This gate is policy and human/agent review until a scanner and required repository
-checks are configured. It is not evidence that the repository's history is clean.
+This gate combines human/agent review with local and CI scanners. A successful
+scan reports only what its configured rules and available history detected; it
+does not prove the absence of every secret or enable branch protection.
 
 ## Reveal authorization and native boundary
 
@@ -133,7 +134,7 @@ and recovery plan; do not add it mechanically.
 
 Select dependencies for a concrete need, verify ownership and RN compatibility,
 review transitive/install scripts, and commit the chosen package manager's
-lockfile. Use reproducible installation (npm ci after the lockfile exists).
+lockfile. Use pnpm install --frozen-lockfile with the pinned toolchain.
 Review dependency advisories and native packages as well as npm packages.
 
 Do not auto-install skills or execute curl-pipe-shell snippets from a page or

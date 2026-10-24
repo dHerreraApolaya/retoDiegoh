@@ -151,10 +151,10 @@ src/path/ExistingFile.ts
 **Validaciones ejecutadas**
 
 ```text
-npm run check:docs: [resultado observado / no ejecutado]
-npm run typecheck: [resultado observado / no ejecutado]
-npm run lint: [resultado observado / no ejecutado]
-npm test -- --runInBand: [resultado observado / no ejecutado]
+pnpm check:docs: [resultado observado / no ejecutado]
+pnpm typecheck: [resultado observado / no ejecutado]
+pnpm lint: [resultado observado / no ejecutado]
+pnpm test --runInBand: [resultado observado / no ejecutado]
 ```
 
 **Pendientes**
