@@ -15,7 +15,7 @@
 
 ## Implementation rules
 
-- Organize src/capabilities by business capability, with domain, application, infrastructure, and presentation inside each capability. Create layers only when needed.
+- Use screaming architecture: src/modules/features/<feature>/{domain,application,infrastructure,presentation}, `src/modules/__tests__/<feature>` for feature tests, and src/navigation for typed routes and navigator composition. Create layers only when needed; ADR-002 supersedes ADR-001 paths.
 - Domain is framework-free; application depends on domain and ports, never concrete native/storage/network adapters.
 - Wire implementations in src/app. No cross-capability deep imports, hidden global service locators, or business logic in screens.
 - Reserve src/design/tokens as the single future token source; create files only when real values are defined. No approved iO token values are currently supplied.
@@ -43,6 +43,7 @@
 - Available checks: pnpm typecheck; pnpm lint; pnpm test --runInBand; pnpm check:docs.
 - Node 24.22.1 and pnpm 10.34.8 are pinned. Use pnpm install --frozen-lockfile; npm/yarn and competing JS lockfiles are forbidden. See CONTRIBUTING.md for setup and the complete pnpm check gate.
 - Run checks proportionate to the change. Behavior fixes need regression coverage; native security needs native/device evidence, not only Jest mocks.
+- Work with BDD scenarios and TDD (red, green, refactor). Assert observable results, not component hierarchy, private state, method choreography or incidental render counts. Snapshot tests are prohibited. Find elements by accessible role/name first, label/text second, stable testID only when semantic queries are insufficient. Add non-sensitive, flow-owned test IDs for critical E2E actions; IDs supplement accessibility.
 - Keep spec and OWASP matrix statuses honest: planned, implemented, verified, not-applicable, accepted-risk.
 - Report changes, checks actually executed, and material pending work. No push, publication, or release is implied by preparing this project.
 

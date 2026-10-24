@@ -131,17 +131,36 @@ Never claim approved iO visual parity without its actual reference.
 
 ## Behavioral verification
 
-Test observable rules, interactions, failure outcomes, contracts and cleanup.
-Do not assert private method calls, internal state or incidental markup. Prefer
-semantic component queries; use stable, non-sensitive E2E IDs for critical flows.
-Use deterministic time/network doubles and add regression coverage for behavior
-fixes. Native and device tests are necessary for platform security behavior.
+Define Given/When/Then acceptance scenarios before behavior code. Follow TDD:
+run a failing test, implement the smallest change, then refactor with the same
+behavior assertions. Keep requirement-to-scenario-to-test traceability. Tests
+must tolerate changes to algorithms, layout nesting and internal orchestration
+while failing when the promised result changes.
 
-Colocate relevant tests; naming is defined in
-[naming-conventions.md](naming-conventions.md). Avoid blanket coverage quotas,
-implementation-mirroring tests or an entire new suite for low-impact docs edits.
+Snapshot tests (including inline/error snapshots) are prohibited and rejected
+by ESLint. Do not assert serialized trees, child indexes, private React state,
+internal navigation-state shape, style values or component implementation names.
+Assert visible screens, accessible actions, public outcomes and data/cache
+effects. Test doubles belong at external boundaries; do not replace the behavior
+under test with a mock. A public contract's required side effect may be verified
+at that boundary, without prescribing an internal call sequence.
 
-Completion follows [quality gates](quality-gates.md): run checks proportional to
-the change, update meaningful decisions/spec evidence, and report commands and
-observed results. A check not executed remains pending. Documentation does not
-establish OWASP compliance or successful native builds.
+Element-query priority is role plus accessible name, then accessible label or
+visible text. Use testID only when semantic queries are insufficient; narrow to a
+meaningful container with within when ambiguity requires scope. Do not traverse
+children/parents by position. Provide stable IDs for critical screens/actions
+now so future E2E tests have durable selectors, even when component tests use
+roles. IDs use feature.flow.element, are declared per flow, and exclude indexes,
+translated copy, generated randomness and sensitive data. IDs never replace
+accessible labels and roles.
+
+Use deterministic time/network doubles and regression cases for behavior fixes.
+Avoid arbitrary sleep, brittle wall-clock limits, blanket coverage quotas and
+implementation-mirroring tests. Native/device tests remain necessary for platform
+security behavior; JS mocks cannot prove it.
+
+Place feature tests in `src/modules/__tests__/<feature>`; app/bootstrap smoke
+tests may remain at existing app-level locations. Follow
+[naming conventions](naming-conventions.md) and
+[quality gates](quality-gates.md). Record real commands/results and pending
+platform evidence; documentation does not establish OWASP compliance.

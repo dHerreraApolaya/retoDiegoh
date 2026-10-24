@@ -11,6 +11,7 @@ Use N/A with a reason when a category does not apply.
 - [ ] SOLID/KISS/DRY applied; selected patterns and intentional duplication justified.
 - [ ] Growing collections/hot paths reviewed for time and auxiliary-space complexity, input bounds, repeated scans/copies and unbounded requests/caches. Record assumptions and tradeoffs; performance improvement claims include actual profiling evidence, or N/A with a reason.
 - [ ] Relevant typecheck/lint/tests or documentation checks executed.
+- [ ] BDD scenarios and TDD evidence recorded; tests assert observable outcomes, avoid snapshots and internal structure, and prefer semantic queries. Critical screens/actions expose stable, non-sensitive IDs for future E2E.
 - [ ] Pinned Node/pnpm and frozen lockfile used; format, toolchain and quality checks passed. Dependency/native changes include platform results or explicit pending evidence.
 - [ ] Dependency audit covers production and development packages; record pnpm audit:dependencies results. High/critical findings block approval; review lower severities and dependency/lockfile changes.
 - [ ] React changes follow hook dependencies, pure renders and immutable state; manual memoization or compiler opt-outs include a concrete reason and validation.

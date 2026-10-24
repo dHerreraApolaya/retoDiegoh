@@ -69,3 +69,7 @@ Algorithmic complexity is a manual design/review criterion described in
 [coding standards](coding-standards.md#algorithmic-complexity-and-resource-bounds).
 Passing lint, React Compiler diagnostics or a cyclomatic-complexity metric does
 not establish acceptable time/space complexity or device performance.
+
+BDD/TDD evidence and resilient selectors follow [testing standards](coding-standards.md#behavioral-verification).
+ESLint rejects Jest snapshot matchers; review still checks outcome-focused assertions
+and E2E ID/accessibility quality. Passing lint alone does not establish test quality.

@@ -1,7 +1,7 @@
 # ADR-001: Capability boundaries with internal clean layers
 
 - Date: 2026-10-23
-- Status: accepted project baseline
+- Status: source/test paths superseded by [ADR-002](ADR-002-screaming-feature-architecture.md); inward dependency principles retained
 - Scope: code organization and documentation; feature implementation remains pending.
 
 ## Context

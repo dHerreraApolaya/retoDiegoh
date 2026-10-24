@@ -81,8 +81,9 @@ to collect unrelated methods. Do not put React, Http or Native in domain names.
 
 ## Tests, exports and Git
 
-Colocate behavior tests: RevealCardData.test.ts, CardSummary.test.tsx and
-HttpCardReader.integration.test.ts. Reserve kebab-case for journey files such as
+Feature behavior tests live in `src/modules/__tests__/<feature>`, named
+RevealCardData.test.ts, CardSummary.test.tsx or HttpCardReader.integration.test.ts.
+App/bootstrap tests retain their existing app-level locations. Reserve kebab-case for journey files such as
 secure-card-reveal.e2e.ts. Use descriptive scenarios: rejects an expired token.
 Framework-native test targets retain their required names.
 
