@@ -28,6 +28,55 @@ is needed. CVV and reveal tokens must not be persisted even in secure storage.
 Clearing references reduces exposure; it does not guarantee physical memory
 zeroization in managed runtimes. A mobile bundle cannot safely hold a backend secret.
 
+## No secrets in source control
+
+Real secrets must never be hardcoded or committed, including private API keys
+(api_key/API_KEY), passwords, access/refresh tokens, authorization headers, private
+keys, service-account JSON, database credentials, private signing certificates,
+release keystores and provisioning material. The rule covers TypeScript, JS,
+Kotlin, Swift, Gradle, plist/XML, environment/config files, tests, fixtures,
+documentation, screenshots, logs, archives and generated outputs. It also covers
+every commit introduced by a PR, even if a later commit deletes the secret.
+
+Use conspicuously fake placeholders such as YOUR_API_KEY in examples. Store
+development/CI secrets outside the repository using the appropriate approved
+secret service. Do not bake backend credentials into a mobile bundle using .env,
+build-time substitution, base64 or obfuscation. Client-accessible values remain
+extractable. Public client identifiers/configuration are not automatically
+secrets, but must be documented and reviewed before inclusion; do not assume that
+a value is public merely because an SDK calls it an API key.
+
+.gitignore excludes common local credential paths and file types. It is not a
+secret scanner and cannot remove already tracked files or past commits. Review
+staged paths and content before committing, and review the final diff plus all
+introduced commits before approving a PR. File extensions and variable names
+alone cannot establish that the content is safe.
+
+The sole existing signing-file exception is android/app/debug.keystore: the
+standard public React Native development keystore, with public debug credentials.
+It is development-only, never a production credential, and must not sign a release.
+No new private key or production signing file is covered by that exception.
+Changes to the exception or replacement of the debug artifact require explicit
+review; never allowlist credential files solely to silence a scanner.
+
+### Pull-request gate
+
+- Explicitly check the categories above for all changes, including AI-generated
+  code and changes limited to docs, configuration or tests.
+- A confirmed secret or unexplained credential artifact blocks approval/merge.
+- Record manual review scope/result and scanner name, scope and observed result
+  separately in the PR. If no scanner ran, record NOT RUN; this baseline does not
+  currently configure automated secret scanning or enforce branch protection.
+- Do not copy discovered values into comments, issue bodies, CI logs or prompts.
+  Report only the path/location and category through the private reporting flow.
+- Require the credential owner to revoke/rotate a leaked secret, remove it from
+  the tree and address introduced/history exposure. Deletion or a new ignore rule
+  alone is insufficient. History rewriting requires coordination and explicit
+  authorization; do not perform destructive cleanup automatically.
+
+This gate is policy and human/agent review until a scanner and required repository
+checks are configured. It is not evidence that the repository's history is clean.
+
 ## Reveal authorization and native boundary
 
 - Validate cardId, token shape/size, version and permitted operation at the native

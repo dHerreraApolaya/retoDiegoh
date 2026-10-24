@@ -10,6 +10,12 @@ Read [AGENTS.md](../../../AGENTS.md),
 [threat model](../../../docs/security/threat-model.md), and
 [OWASP matrix](../../../docs/security/owasp-matrix.md).
 
+Explicitly inspect secrets and sensitive-file exposure in the final diff and
+introduced commits, including non-code files. Apply the secrets PR gate from
+secure-development.md; report only locations/categories, block confirmed leaks,
+and distinguish manual review from an actually executed scanner. Do not claim
+repository-history cleanliness or revoke credentials on the owner's behalf.
+
 1. Identify changed assets, inputs and trust boundaries. Use synthetic data only.
 2. Select applicable Mobile Top 10 risks and MASVS controls; consult relevant
    MASTG procedures when an actual verification target is known. A risk-category

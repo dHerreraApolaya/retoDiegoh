@@ -21,6 +21,7 @@
 - Reserve src/design/tokens as the single future token source; create files only when real values are defined. No approved iO token values are currently supplied.
 - Apply SOLID, KISS and DRY to human and AI changes. Select design patterns for concrete requirements, explain the tradeoff, and prefer simple functions/composition over speculative abstraction. Names must reveal business intent and layer responsibility.
 - Validate untrusted inputs at boundaries, use strict types, typed errors, and listener/resource cleanup.
+- Never commit real secrets: private API keys, passwords, access/refresh tokens, private keys, service-account credentials, signing material or sensitive files. This includes source/native code, config, fixtures, docs, screenshots, generated artifacts and every commit in a PR. Use fake placeholders in examples; environment injection or encoding does not make a client-bundled secret safe.
 - Keep full PAN/CVV out of JS state, persistence, logs, analytics, navigation, and native event payloads. Reveal tokens are ephemeral.
 - Native code independently validates the reveal request before displaying data; fail closed on expiry, invalid input, lifecycle loss, and concurrent-session conflicts.
 - Document differences between Android and iOS protections; do not promise equivalent screenshot prevention.
@@ -45,6 +46,8 @@
 
 ## Code review rules
 
+- Every PR must explicitly review secrets and sensitive files across its final diff and introduced commits. A confirmed secret or unexplained sensitive credential file blocks approval/merge. Never reproduce a discovered value in review output; report only its location and credential category, then require owner-led revocation/rotation and cleanup.
+- .gitignore is preventive only: it does not remove tracked files or history. Do not claim a secret scan passed without running a scanner; record manual review and automated scan status separately.
 - Prioritize authorization bypass, sensitive-data leaks, lifecycle races, crashes, and boundary violations.
 - Require exact locations and observable consequences for findings. Do not block on speculative abstractions or cosmetic preferences.
 - Changes to agent instructions, skills, security policy, dependency sources, and automation require explicit diff review, just like executable code.

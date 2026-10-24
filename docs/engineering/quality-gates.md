@@ -5,6 +5,7 @@
 | Change | Required evidence |
 | --- | --- |
 | Documentation/agent instructions | Local links, skill metadata, contradictory-rule review, diff review |
+| Every PR, including docs/config/tests | Explicit secrets/sensitive-file review of final diff and introduced commits; separate manual and scanner evidence |
 | TypeScript or React behavior | Typecheck, lint, relevant behavioral/regression tests |
 | Native contract or security lifecycle | Above plus Codegen/build, native contract/lifecycle tests and supported-platform checks |
 | Sensitive display | Actual device/OS capture, background, timeout and storage/log checks |
@@ -49,6 +50,10 @@ E2E runner is configured by this baseline. These remain explicit follow-up work.
    settings; they are not enabled by adding a Markdown file.
 
 ## Done means observed
+
+The [secrets PR gate](../security/secure-development.md) applies to every change.
+Confirmed leaks block approval/merge; .gitignore is not a scan. Automated secret
+scanning and required repository checks remain pending configuration.
 
 Report checks as passed only after execution. Record missing environments and
 device evidence without treating them as passes. Update the spec and OWASP

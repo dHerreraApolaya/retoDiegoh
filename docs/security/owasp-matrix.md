@@ -32,6 +32,7 @@ evidence. No mobile security control is currently marked verified.
 | SEC-004 | iOS exposure is accurately bounded | Capture-state and snapshot tests; explicit screenshot limitation | planned; acceptance unresolved |
 | SEC-005 | No sensitive logs, persistence, events or analytics | Synthetic marker inspection across each output channel | planned |
 | SEC-006 | Release configuration excludes debug trust/network exceptions | Inspect merged release manifest, ATS and signing settings | planned |
+| SEC-007 | No committed real secrets or sensitive credential files | Explicit PR diff/introduced-commit review and separately recorded scanner results | policy defined; automated scan pending |
 
 For every future verified row, link the code location, exact test/MASTG procedure,
 command, build/commit, platform and OS, date, observed result and sanitized

@@ -32,7 +32,7 @@ local.properties
 *.hprof
 .cxx/
 *.keystore
-!debug.keystore
+!/android/app/debug.keystore
 .kotlin/
 
 # node.js
@@ -84,6 +84,16 @@ yarn-error.log
 *.pfx
 *.mobileprovision
 *.jks
+*.p8
+.netrc
+.pypirc
+.npmrc.local
+.aws/
+.ssh/
+id_rsa
+id_ed25519
+service-account*.json
+*-service-account.json
 google-services.json
 GoogleService-Info.plist
 

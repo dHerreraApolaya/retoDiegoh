@@ -8,6 +8,14 @@ description: Review a project diff for concrete correctness, security, architect
 Read [AGENTS.md](../../../AGENTS.md) and only the handbook sections relevant to
 the changed code. Inspect the diff and surrounding behavior before conclusions.
 
+Every PR requires an explicit secrets review of the final diff and introduced
+commits, including docs/config/tests/generated files: private API keys, passwords,
+tokens, private keys, service-account files and production signing material.
+Follow the [secrets gate](../../../docs/security/secure-development.md).
+Confirmed leaks or unexplained credential files block approval. Report locations
+and categories only, never secret values. Record manual review and automated scan
+results separately; .gitignore and an unexecuted scan are not evidence of absence.
+
 Prioritize authorization bypass and data exposure, then crashes/lifecycle races,
 business correctness, architectural boundaries, missing behavioral evidence,
 accessibility and measured performance. Formatting alone is not a defect.
