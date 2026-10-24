@@ -16,7 +16,7 @@ Las especificaciones permiten:
 
 ## Estructura
 
-Cada funcionalidad debe almacenarse en:
+La documentación de cada funcionalidad debe almacenarse en:
 
 ```text
 specs/<capability>/<feature-name>/
@@ -32,6 +32,11 @@ specs/cards/card-freezing/
 ├── test-plan.md
 └── implementation-log.md
 ```
+
+Las plantillas existentes permanecen en `specs/modules/_templates/`.
+Esta organización documental no determina otra jerarquía de capas en el código:
+ver [arquitectura](../docs/architecture/architecture.md). Los lineamientos globales
+viven en [docs](../docs/README.md), y las skills en `.agents/skills`.
 
 ## Convenciones de nombres
 
@@ -60,6 +65,19 @@ customer-profile
 - Los nombres técnicos, código, archivos, clases, funciones y contratos deben mantenerse en inglés.
 - Las instrucciones dirigidas al agente pueden escribirse en inglés para reducir ambigüedad y optimizar tokens.
 - El agente debe responder al usuario en español.
+
+## Uso proporcional
+
+Una nueva funcionalidad usa las plantillas pertinentes. Una corrección documental
+o de configuración no requiere crear cinco archivos de spec ni una aprobación
+adicional. Los estados reflejan revisiones reales: la autorización existente del
+usuario puede cubrir trabajo rutinario; no inventar una aprobación ni declarar
+VALIDATED sin ejecutar sus comprobaciones.
+
+Para funcionalidad sensible, relacionar SEC-### con el
+[modelo de amenazas](../docs/security/threat-model.md), la
+[matriz OWASP](../docs/security/owasp-matrix.md), controles MASVS aplicables y
+procedimientos MASTG concretos. Registrar evidencia por plataforma y riesgo residual.
 
 ## Flujo de trabajo
 

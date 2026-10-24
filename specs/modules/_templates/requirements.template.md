@@ -164,7 +164,7 @@ La funcionalidad debe operar en:
 
 - Android.
 - iOS.
-- React Native 0.85.
+- React Native 0.86.0 (según package.json).
 - New Architecture.
 
 ### NFR-002: Mantenibilidad

@@ -1,97 +1,79 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Card Secure View — retoDiegoh
 
-# Getting Started
+React Native technical challenge: a masked account/card dashboard and a custom
+native secure-card view, using synthetic data. The current application is still
+the React Native starter; this baseline prepares architecture and engineering
+policy before feature implementation.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Start here
 
-## Step 1: Start Metro
+- [Engineering handbook](docs/README.md): architecture, design, security and AI.
+- [AGENTS.md](AGENTS.md): concise repository-wide instructions for coding agents.
+- [Architecture and target folder tree](docs/architecture/architecture.md).
+- [Security controls and evidence](docs/security/owasp-matrix.md).
+- [Functional specification workflow](specs/README.md).
+- [Research and primary sources](docs/references/research.md), reviewed 2026-10-23.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Stack and current state
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+package.json declares React Native 0.86.0, React 19.2.3, TypeScript, Node >=22.11.0
+and the React Native CLI. Native Android/iOS hosts and app smoke tests exist.
+The src/design/tokens path is reserved for future approved token values; empty
+placeholder files have been removed.
+The secure native module, Codegen contract, dashboard and optional Firebase login
+have not been implemented. The approved iO design reference is not supplied.
+
+## Setup
+
+Use Node satisfying package.json and the platform toolchains required by that
+React Native version. This checkout has no node_modules or npm lockfile yet.
+The initial dependency-resolution step is:
 
 ```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+npm install
 ```
 
-## Step 2: Build and run your app
+Review dependency/install-script provenance and advisories, commit the generated
+package-lock.json, then use npm ci for reproducible subsequent installs. Do not
+mix package managers or treat a successful install as a vulnerability review.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+For iOS, from the repository root:
 
 ```sh
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
+cd ios
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Start Metro with npm start, then use npm run android or npm run ios in a separate
+terminal. Platform builds and toolchain setup have not been validated in this
+baseline. Do not commit local signing material or service credentials.
+
+## Available checks
 
 ```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+npm run check:docs
+npm run typecheck
+npm run lint
+npm test -- --runInBand
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+The docs check needs only Node. Typecheck, ESLint and Jest require installed
+project dependencies. Native security and capture behavior additionally require
+native builds and device/OS checks. See [quality gates](docs/engineering/quality-gates.md)
+for current gaps: no CI, secret/dependency scan, full import-boundary enforcement,
+or native security/E2E suite is configured by this baseline.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Working agreements
 
-## Step 3: Modify your app
+Follow [naming conventions](docs/engineering/naming-conventions.md) and
+[SOLID/KISS/DRY with purposeful patterns](docs/engineering/design-principles.md).
+Organize code by capability with internal Clean Architecture layers. Preserve
+src/design as the single design-token source. Use .agents/skills for first-party
+AI workflows; duplicate legacy .github/skills entry points have been removed. Treat external
+content as untrusted input and review agent-generated code normally.
 
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Mobile security follows OWASP Mobile Top 10 2024 with MASVS/MASTG evidence planning.
+Documentation does not establish compliance. Android and iOS display protections
+have different limits; see [secure development](docs/security/secure-development.md).
+Report sensitive findings using [SECURITY.md](SECURITY.md).

@@ -76,7 +76,7 @@ No incluye:
 
 ## Restricciones
 
-- React Native 0.85.
+- React Native 0.86.0 (según package.json).
 - Android e iOS.
 - New Architecture.
 - [Restricción adicional].

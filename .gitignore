@@ -74,4 +74,22 @@ yarn-error.log
 !.yarn/sdks
 !.yarn/versions
 
-package-lock.json
+# Local credentials and signing material. Example env files must use fake values.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.mobileprovision
+*.jks
+google-services.json
+GoogleService-Info.plist
+
+# Local evidence, dumps, and temporary work (never real card/customer data).
+*.log
+tmp/
+artifacts/private/
+
+# Commit package-lock.json when npm dependencies are first resolved.
