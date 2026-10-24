@@ -3,13 +3,13 @@
 Canonical first-party workflows are in .agents/skills. Redundant .github/skills
 entry points have been removed; maintain only one copy of each workflow.
 
-| Skill | Use | Provenance |
-| --- | --- | --- |
-| build-feature | Capability feature implementation and requirement evidence | Project-owned; migrated from .github/skills |
-| native-integration | Custom Card Secure View and other native boundaries | Project-owned; migrated and aligned with challenge restrictions |
-| review-change | Review a diff and report concrete risks | Project-owned; migrated from .github/skills |
-| mobile-security-review | Review threat/control changes and verification evidence | Project-owned; added for this baseline |
-| react-native-best-practices | Topic-specific React Native reference material | Existing Software Mansion Labs package; see skills-lock.json |
+| Skill                       | Use                                                        | Provenance                                                      |
+| --------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------- |
+| build-feature               | Capability feature implementation and requirement evidence | Project-owned; migrated from .github/skills                     |
+| native-integration          | Custom Card Secure View and other native boundaries        | Project-owned; migrated and aligned with challenge restrictions |
+| review-change               | Review a diff and report concrete risks                    | Project-owned; migrated from .github/skills                     |
+| mobile-security-review      | Review threat/control changes and verification evidence    | Project-owned; added for this baseline                          |
+| react-native-best-practices | Topic-specific React Native reference material             | Existing Software Mansion Labs package; see skills-lock.json    |
 
 The third-party package was present before this change and is preserved without
 modification. Its broad trigger does not mandate new dependencies or give it

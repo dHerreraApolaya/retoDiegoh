@@ -102,4 +102,6 @@ GoogleService-Info.plist
 tmp/
 artifacts/private/
 
-# Commit package-lock.json when npm dependencies are first resolved.
+# pnpm is the only package manager. Commit pnpm-lock.yaml.
+.pnpm-store/
+.husky/_/

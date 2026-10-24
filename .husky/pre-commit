@@ -1,0 +1,6 @@
+pnpm check:toolchain
+pnpm exec lint-staged
+pnpm check:docs
+pnpm check:sensitive-files
+pnpm check:secrets:staged
+pnpm check:secrets

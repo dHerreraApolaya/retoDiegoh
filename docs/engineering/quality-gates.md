@@ -1,60 +1,71 @@
-# Quality gates and current limitations
+# Quality gates
 
-## Change-based checks
+Use the pinned Node/pnpm toolchain and frozen pnpm lockfile. Setup and contributor
+commands are in [CONTRIBUTING.md](../../CONTRIBUTING.md).
 
-| Change | Required evidence |
-| --- | --- |
-| Documentation/agent instructions | Local links, skill metadata, contradictory-rule review, diff review |
-| Every PR, including docs/config/tests | Explicit secrets/sensitive-file review of final diff and introduced commits; separate manual and scanner evidence |
-| TypeScript or React behavior | Typecheck, lint, relevant behavioral/regression tests |
-| Native contract or security lifecycle | Above plus Codegen/build, native contract/lifecycle tests and supported-platform checks |
-| Sensitive display | Actual device/OS capture, background, timeout and storage/log checks |
-| UI | Applicable states, token provenance, VoiceOver/TalkBack, focus and large text |
-| Dependencies/build/release | Lockfile, advisory/provenance review, native builds and release artifact inspection |
+## Implemented gates
 
-No blanket coverage percentage substitutes for critical behavior. Prefer tests
-for wrong/expired tokens, background transitions, duplicate taps, stale callbacks,
-cleanup and failure states. Do not add tests that merely mirror internal helpers.
+| Gate                  | Command                    | Scope                                                                                            |
+| --------------------- | -------------------------- | ------------------------------------------------------------------------------------------------ |
+| Toolchain             | pnpm check:toolchain       | Exact Node/pnpm, consistent pins, no competing JS lockfiles                                      |
+| Documentation         | pnpm check:docs            | Local Markdown targets in project-owned guides, specs and skills                                 |
+| Formatting            | pnpm format:check          | Shared Prettier configuration; explicit generated/vendor exclusions                              |
+| Lint                  | pnpm lint                  | RN, TanStack and React Compiler/hook rules; zero warnings, no unsafe dynamic code or raw console |
+| Types                 | pnpm typecheck             | Strict TypeScript and RN 0.87 public API                                                         |
+| Tooling tests         | pnpm test:tooling          | Toolchain drift, sensitive paths/keys, actual Babel compilation and hook-rule regressions        |
+| App tests             | pnpm test:ci               | Jest behavior tests and coverage reporting; no arbitrary percentage quota                        |
+| Sensitive paths       | pnpm check:sensitive-files | Tracked credential files, including force-added ignored files                                    |
+| Content secrets       | pnpm check:secrets         | Masked Secretlint rules for current project files                                                |
+| History secrets       | pnpm check:secrets:history | Masked scan of reachable Git patch history, excluding the public debug keystore                  |
+| Dependency advisories | pnpm audit:dependencies    | Online registry check of production and development packages; high/critical findings fail        |
 
-## Commands
+The pre-commit hook additionally runs pnpm check:secrets:staged against the Git
+index, so unstaged edits cannot hide a staged credential. History scans normalize
+Git patch markers before content detection.
 
-```sh
-npm run check:docs
-npm run typecheck
-npm run lint
-npm test -- --runInBand
-```
+pnpm check runs all offline gates. CI installs with --frozen-lockfile, fetches full
+history, runs the gate and checks all dependency advisories. Pre-push also runs
+the online audit. Registry errors fail rather than being ignored. The workflow
+runs weekly and on manual dispatch once merged into the default branch.
+Actions are SHA-pinned,
+permissions read-only, and no service secrets are passed to PR jobs. Dependabot
+proposes weekly grouped package and GitHub Action updates.
 
-The docs check is dependency-free and checks local Markdown file targets in the
-project-owned handbook, instructions, skills and specs. It does not validate
-external URLs, anchor IDs, architecture imports, security controls or vendored
-third-party references. Its scope is deliberate, not evidence of compliance.
+Review all reported severities and upstream fixes. High/critical findings block
+the online gate; lower severities still require triage in the PR. Do not use
+blanket advisory ignores or force breaking upgrades. Recheck scoped overrides
+when updating dependencies. Audits detect known registry advisories, not all
+supply-chain attacks, and do not scan CocoaPods/SwiftPM/Gradle packages.
 
-Typecheck/lint/Jest need node_modules. There is currently no npm lockfile;
-establish one through a reviewed install before adopting npm ci. No CI workflow,
-secret scanner, dependency scanner, import-graph checker, native security tests or
-E2E runner is configured by this baseline. These remain explicit follow-up work.
+Hooks are convenience, not a security boundary: they can be disabled. GitHub
+branch protection and required **Quality gates** status must be enabled by an
+owner; this work does not change account/repository settings.
 
-## Next hardening steps
+## Required review and further evidence
 
-1. Resolve/install dependencies, commit package-lock.json, review advisories and
-   validate the starter on Android/iOS.
-2. Add CI with minimum read permissions and actions pinned to reviewed SHAs:
-   npm ci, docs, typecheck, lint and tests; add appropriate secret and dependency
-   scanning with triage and owner review.
-3. Enforce capability/layer boundaries with a parser-based import-graph tool;
-   cover relative imports and cycles rather than relying only on alias patterns.
-4. Implement native security contracts and native/device tests from SEC-001..006.
-5. Require reviewed checks and security-sensitive diffs through repository branch
-   protection. Branch protection and secret-scanning availability are account
-   settings; they are not enabled by adding a Markdown file.
+Every PR follows the [secrets gate](../security/secure-development.md), including
+manual inspection of final diff/introduced commits and separate scanner evidence.
+A scan cannot detect all possible secrets, a file-path gate cannot classify every
+arbitrary filename, and available local history may omit remote/unfetched refs.
 
-## Done means observed
+Require proportional checks in addition to the automated gate:
 
-The [secrets PR gate](../security/secure-development.md) applies to every change.
-Confirmed leaks block approval/merge; .gitignore is not a scan. Automated secret
-scanning and required repository checks remain pending configuration.
+| Change                    | Additional evidence                                                                        |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| Business behavior         | Requirement-linked failure/success and regression tests                                    |
+| Growing data / hot paths  | Input bounds, time/auxiliary-space analysis and realistic profiling for performance claims |
+| Native contract/lifecycle | Codegen/build, native tests and actual lifecycle behavior                                  |
+| Sensitive display         | Supported device/OS screenshots, recording, background and timeout checks                  |
+| UI                        | Design provenance, VoiceOver/TalkBack, focus and large text                                |
+| Firebase access           | Local project setup, deny-by-default rules, emulator authorization tests                   |
+| Release/build             | Native artifact, signing, permissions and networking configuration inspection              |
 
-Report checks as passed only after execution. Record missing environments and
-device evidence without treating them as passes. Update the spec and OWASP
-matrix with sanitized evidence links when a control progresses to verified.
+Full import-graph/cycle enforcement, native-language formatting, native/device
+security suites and Firebase emulator tests remain future work. Native build
+results are distinct from passing JS checks; report environment gaps explicitly.
+No verified OWASP control is inferred from a tooling-only check.
+
+Algorithmic complexity is a manual design/review criterion described in
+[coding standards](coding-standards.md#algorithmic-complexity-and-resource-bounds).
+Passing lint, React Compiler diagnostics or a cyclomatic-complexity metric does
+not establish acceptable time/space complexity or device performance.

@@ -7,22 +7,22 @@ use English; functional specifications and user-facing explanations use Spanish.
 
 ## Paths and identifiers
 
-| Element | Convention | Example |
-| --- | --- | --- |
-| Capability and ordinary source directories | kebab-case; capability is a business concept | cards, accounts, authentication, value-objects |
-| Type/class/component file | PascalCase; match the principal export | Card.ts, CardSummary.tsx |
-| Function-only module | camelCase; name the operation | createCardsCapability.ts, mapCardResponse.ts |
-| Hook file and function | camelCase with use prefix | useCardSummary.ts |
-| Native Codegen contract | Native prefix required by RN discovery | NativeCardSecureView.ts |
-| Repository script | kebab-case | check-doc-links.mjs |
-| Engineering Markdown | kebab-case, except conventional entry points | naming-conventions.md; README.md, AGENTS.md, SECURITY.md |
-| Types, interfaces, classes and React components | PascalCase | CardId, CardReader, CardSummary |
-| Variables, parameters, functions and methods | camelCase; meaningful nouns or verbs | cardId, expiresAt, revealCardData |
-| Boolean | is/has/can/should plus a positive condition | isExpired, hasActiveSession, canReveal |
-| Ordinary constants and token maps | camelCase; use readonly/as const as appropriate | revealTimeoutMs, cardColors |
-| Fixed protocol/error codes | UPPER_SNAKE_CASE string values | TOKEN_EXPIRED, USER_DISMISS |
-| Kotlin/Swift files and types | PascalCase | CardSecureViewModule.kt, RevealSession.swift |
-| Kotlin packages | Lowercase reverse-domain segments; follow existing app namespace | com.retodiegoh.cards |
+| Element                                         | Convention                                                       | Example                                                  |
+| ----------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
+| Capability and ordinary source directories      | kebab-case; capability is a business concept                     | cards, accounts, authentication, value-objects           |
+| Type/class/component file                       | PascalCase; match the principal export                           | Card.ts, CardSummary.tsx                                 |
+| Function-only module                            | camelCase; name the operation                                    | createCardsCapability.ts, mapCardResponse.ts             |
+| Hook file and function                          | camelCase with use prefix                                        | useCardSummary.ts                                        |
+| Native Codegen contract                         | Native prefix required by RN discovery                           | NativeCardSecureView.ts                                  |
+| Repository script                               | kebab-case                                                       | check-doc-links.mjs                                      |
+| Engineering Markdown                            | kebab-case, except conventional entry points                     | naming-conventions.md; README.md, AGENTS.md, SECURITY.md |
+| Types, interfaces, classes and React components | PascalCase                                                       | CardId, CardReader, CardSummary                          |
+| Variables, parameters, functions and methods    | camelCase; meaningful nouns or verbs                             | cardId, expiresAt, revealCardData                        |
+| Boolean                                         | is/has/can/should plus a positive condition                      | isExpired, hasActiveSession, canReveal                   |
+| Ordinary constants and token maps               | camelCase; use readonly/as const as appropriate                  | revealTimeoutMs, cardColors                              |
+| Fixed protocol/error codes                      | UPPER_SNAKE_CASE string values                                   | TOKEN_EXPIRED, USER_DISMISS                              |
+| Kotlin/Swift files and types                    | PascalCase                                                       | CardSecureViewModule.kt, RevealSession.swift             |
+| Kotlin packages                                 | Lowercase reverse-domain segments; follow existing app namespace | com.retodiegoh.cards                                     |
 
 Preserve framework-mandated filenames, native resource names and generated code
 conventions. Do not rename App.tsx, index.js, Info.plist, AndroidManifest.xml or
@@ -38,26 +38,26 @@ Conventional tiny loop variables are acceptable in a genuinely local scope.
 
 ## Layer vocabulary
 
-| Responsibility | Name/file example | Rule |
-| --- | --- | --- |
-| Domain entity | Card.ts | Business noun; avoid CardModel/CardEntity unless disambiguation is necessary |
-| Value object | CardId.ts, RevealDeadline.ts | A meaningful invariant, not a wrapper for every primitive |
-| Domain policy | CardRevealPolicy.ts | State the rule; a pure function is enough when no object is needed |
-| Domain event | CardRevealed.ts | Past-tense business fact |
-| Domain error | CardNotFoundError.ts | Business failure, without transport/platform details |
-| Application use case | RevealCardData.ts | Verb + business object; no redundant UseCase/Impl suffix |
-| Function-based use case | revealCardData.ts | Same responsibility; choose a function or class from the actual need |
-| Application port | CardReader.ts, SecureCardView.ts | Consumer's required role, without I, Interface or Port prefixes/suffixes |
-| Repository port | CardRepository.ts | Only when collection/persistence semantics are needed; avoid generic CRUD |
-| Infrastructure adapter | MockCardReader.ts, HttpCardReader.ts, NativeSecureCardView.ts | Name mechanism + implemented role |
-| Transport DTO | CardResponseDto.ts | Boundary-specific shape; do not expose it to presentation |
-| Mapper | mapCardResponse.ts | Source/purpose is clear; a stateless mapper does not need a class |
-| Screen | CardsDashboardScreen.tsx | Routed view; Screen suffix |
-| UI component | CardSummary.tsx | User-visible concept; no redundant Component suffix |
-| Presentation hook | useCardsDashboard.ts | UI orchestration; no business/security authority hidden in hooks |
-| View state | CardsDashboardState.ts | UI state, distinct from server DTO or domain entity |
-| Composition factory | createCardsCapability.ts | Wires dependencies; business rules remain outside the factory |
-| Test doubles | CardReaderStub.ts, SecureCardViewSpy.ts, CardReaderFake.ts | Name the role and actual double behavior |
+| Responsibility          | Name/file example                                             | Rule                                                                         |
+| ----------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Domain entity           | Card.ts                                                       | Business noun; avoid CardModel/CardEntity unless disambiguation is necessary |
+| Value object            | CardId.ts, RevealDeadline.ts                                  | A meaningful invariant, not a wrapper for every primitive                    |
+| Domain policy           | CardRevealPolicy.ts                                           | State the rule; a pure function is enough when no object is needed           |
+| Domain event            | CardRevealed.ts                                               | Past-tense business fact                                                     |
+| Domain error            | CardNotFoundError.ts                                          | Business failure, without transport/platform details                         |
+| Application use case    | RevealCardData.ts                                             | Verb + business object; no redundant UseCase/Impl suffix                     |
+| Function-based use case | revealCardData.ts                                             | Same responsibility; choose a function or class from the actual need         |
+| Application port        | CardReader.ts, SecureCardView.ts                              | Consumer's required role, without I, Interface or Port prefixes/suffixes     |
+| Repository port         | CardRepository.ts                                             | Only when collection/persistence semantics are needed; avoid generic CRUD    |
+| Infrastructure adapter  | MockCardReader.ts, HttpCardReader.ts, NativeSecureCardView.ts | Name mechanism + implemented role                                            |
+| Transport DTO           | CardResponseDto.ts                                            | Boundary-specific shape; do not expose it to presentation                    |
+| Mapper                  | mapCardResponse.ts                                            | Source/purpose is clear; a stateless mapper does not need a class            |
+| Screen                  | CardsDashboardScreen.tsx                                      | Routed view; Screen suffix                                                   |
+| UI component            | CardSummary.tsx                                               | User-visible concept; no redundant Component suffix                          |
+| Presentation hook       | useCardsDashboard.ts                                          | UI orchestration; no business/security authority hidden in hooks             |
+| View state              | CardsDashboardState.ts                                        | UI state, distinct from server DTO or domain entity                          |
+| Composition factory     | createCardsCapability.ts                                      | Wires dependencies; business rules remain outside the factory                |
+| Test doubles            | CardReaderStub.ts, SecureCardViewSpy.ts, CardReaderFake.ts    | Name the role and actual double behavior                                     |
 
 Avoid CardManager, BaseService, CommonUtils, DataHelper, processData and
 CardRepositoryImpl. Replace them with the real responsibility. A Service suffix
