@@ -41,6 +41,30 @@ Hooks are convenience, not a security boundary: they can be disabled. GitHub
 branch protection and required **Quality gates** status must be enabled by an
 owner; this work does not change account/repository settings.
 
+## Dependabot review policy
+
+GitHub Actions version checks run weekly. Minor/patch updates matching
+github-actions-minor-patch are combined into one PR; major updates remain
+individual PRs for explicit migration review. Up to three GitHub Actions version
+PRs may be open at once. This is a concurrency limit, not a weekly PR quota.
+The existing npm family groups and their five-PR limit remain separate.
+
+The group explicitly applies to version-updates, not security-updates. It does
+not change repository security-update settings or add advisory ignores. Major
+updates remain eligible; they are not suppressed to reduce noise. The policy
+takes effect after the configuration is merged into the default branch.
+
+Before merging, inspect the action's upstream changes and full SHA provenance,
+runner requirements, inputs, permissions and credential handling. Preserve the
+reviewed SHA pins and project Node/pnpm versions. Require successful Quality
+gates on the current head, merge one PR at a time, and check CI on main before
+integrating the next update. CI success does not replace code/security review.
+No auto-merge workflow is introduced, and this file does not configure branch
+protection or make review/status checks mandatory in GitHub settings.
+
+Grouping follows the official
+[Dependabot groups reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#groups).
+
 ## Required review and further evidence
 
 Every PR follows the [secrets gate](../security/secure-development.md), including
